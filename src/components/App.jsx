@@ -21,16 +21,23 @@ export class App extends React.Component {
     }));
   };
 
-  filterContacts = () => {
-    
-  }
+  filterContacts = finder => {
+    const namesArr = this.state.contacts.map(contact => {
+      if (contact.name === finder) {
+        return console.log(finder);
+      }
+    });
+  };
 
   render() {
     return (
       <div className={styles.wrapper}>
         <h1>Phonebook</h1>
         <InfoInput addContact={this.addContact} />
-        <Filter contacts={this.state.contacts} />
+        <Filter
+          contacts={this.state.contacts}
+          filterContacts={this.filterContacts}
+        />
         <Contacts contacts={this.state.contacts} />
       </div>
     );

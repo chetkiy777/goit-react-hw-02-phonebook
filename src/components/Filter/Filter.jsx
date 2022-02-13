@@ -7,11 +7,8 @@ export class Filter extends React.Component {
 
   onChange = e => {
     this.setState({ finder: e.currentTarget.value });
-    
+    this.props.filterContacts(this.state.finder);
   };
-
-
-
 
   render() {
     return (
