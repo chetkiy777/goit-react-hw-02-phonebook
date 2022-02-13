@@ -5,11 +5,23 @@ export class Filter extends React.Component {
     finder: '',
   };
 
+  onChange = e => {
+    this.setState({ finder: e.currentTarget.value });
+    
+  };
+
+
+
+
   render() {
     return (
       <div>
         <p>Find contacts by name</p>
-        <input name="filter" value={this.state.finder} />
+        <input
+          name="filter"
+          value={this.state.finder}
+          onChange={e => this.onChange(e)}
+        />
       </div>
     );
   }
