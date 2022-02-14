@@ -1,25 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import styles from './styles.module.css';
 
 export class Filter extends React.Component {
-  state = {
-    finder: '',
-  };
-
-  onChange = e => {
-    this.setState({ finder: e.currentTarget.value });
-    this.props.filterContacts(this.state.finder);
-  };
-
   render() {
     return (
       <div>
-        <p>Find contacts by name</p>
+        <p className={styles.text}>Find contacts by name</p>
         <input
           name="filter"
-          value={this.state.finder}
-          onChange={e => this.onChange(e)}
+          value={this.props.filter}
+          onChange={e => this.props.onInput(e)}
         />
       </div>
     );
   }
 }
+
+Filter.propTypes = {
+  onInput: PropTypes.func,
+};

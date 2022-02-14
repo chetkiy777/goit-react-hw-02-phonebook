@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 
-const Contacts = ({ contacts }) => {
+const Contacts = ({ contacts, filter, filtered }) => {
+  let rendered = filter === '' ? contacts : filtered();
   return (
     <ul className={styles.contactsList}>
-      {contacts.map(({ name, id, number }) => (
+      {rendered.map(({ name, id, number }) => (
         <li className={styles.listItem} key={id}>
           <span>{name}: </span>
           <span>{number}</span>
@@ -15,13 +16,15 @@ const Contacts = ({ contacts }) => {
 };
 
 Contacts.propTypes = {
+  filter: PropTypes.string,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
-      id: PropTypes.number,
+      id: PropTypes.string.isRequired,
     })
   ),
+  filtered: PropTypes.func,
 };
 
 export default Contacts;

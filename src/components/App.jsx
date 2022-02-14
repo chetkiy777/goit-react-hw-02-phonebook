@@ -2,7 +2,8 @@ import React from 'react';
 import Contacts from './Contacts/Contacts';
 import styles from './styles.module.css';
 import { Filter } from './Filter/Filter';
-import { InfoInput } from './InfoInput/InfoInput';
+
+import { ContactForm } from './ContactForm/ContactForm';
 
 export class App extends React.Component {
   state = {
@@ -21,24 +22,32 @@ export class App extends React.Component {
     }));
   };
 
-  filterContacts = finder => {
-    const namesArr = this.state.contacts.map(contact => {
-      if (contact.name === finder) {
-        return console.log(finder);
-      }
-    });
+  onInput = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  filtered = () => {
+    return [...this.state.contacts].filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLocaleLowerCase())
+    );
   };
 
   render() {
     return (
       <div className={styles.wrapper}>
         <h1>Phonebook</h1>
-        <InfoInput addContact={this.addContact} />
-        <Filter
+        <ContactForm
+          addContact={this.addContact}
           contacts={this.state.contacts}
-          filterContacts={this.filterContacts}
         />
-        <Contacts contacts={this.state.contacts} />
+
+        <h1>Contacts</h1>
+        <Filter onInput={this.onInput} />
+        <Contacts
+          contacts={this.state.contacts}
+          filter={this.state.filter}
+          filtered={this.filtered}
+        />
       </div>
     );
   }
