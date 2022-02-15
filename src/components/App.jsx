@@ -32,6 +32,13 @@ export class App extends React.Component {
     );
   };
 
+  deleteItem = e => {
+    const elemToRemove = e.currentTarget.parentNode.id;
+    this.setState({
+      contacts: this.state.contacts.filter(item => item.id !== elemToRemove),
+    });
+  };
+
   render() {
     return (
       <div className={styles.wrapper}>
@@ -47,6 +54,7 @@ export class App extends React.Component {
           contacts={this.state.contacts}
           filter={this.state.filter}
           filtered={this.filtered}
+          deleteItem={this.deleteItem}
         />
       </div>
     );
